@@ -1,75 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Quick Form Sidecar</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Montserrat;
-    }
+<style>
+#openButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 14px 18px;
+  font-size: 16px;
+  background:#28a745;
+  color:white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 99999;
+}
 
-    .wrapper {
-      padding: 10px;
-      box-sizing: border-box;
-    }
+#drawer {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 400px;
+  height: 600px;
+  border: none;
+  display: none;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+</style>
 
-    #toggleButton {
-      padding: 10px 16px;
-      font-size: 15px;
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      background: #1f7a3b; /* Evolve-style green */
-      color: white;
-    }
+<button id="openButton" onclick="
+  let d = document.getElementById('drawer');
+  if (d.style.display === 'none') {
+    d.src='https://www.cognitoforms.com/EvolveInsuranceAgency1/ServiceRequest?embedded=true';
+    d.style.display='block';
+  } else {
+    d.style.display='none';
+  }
+">
+  ⚡ Quick Form
+</button>
 
-    #panel {
-      margin-top: 10px;
-      width: 100%;
-      height: 0;
-      border: none;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-      border-radius: 6px;
-      transition: height 0.25s ease;
-      overflow: hidden;
-    }
-
-    /* When panel is "open" we'll add this class via JS */
-    #panel.open {
-      height: 600px; /* adjust as needed */
-    }
-  </style>
-</head>
-<body>
-  <div class="wrapper">
-    <button id="toggleButton">Service Request</button>
-    <iframe id="panel" src="about:blank"></iframe>
-  </div>
-
-  <script>
-    const btn = document.getElementById('toggleButton');
-    const panel = document.getElementById('panel');
-    const formUrl = 'https://www.cognitoforms.com/EvolveInsuranceAgency1/ServiceRequest'; // <-- paste your Cognito form URL here
-
-    let loaded = false;
-
-    btn.addEventListener('click', () => {
-      const isOpen = panel.classList.contains('open');
-
-      if (!isOpen) {
-        // first time opening: load the form
-        if (!loaded) {
-          panel.src = formUrl;
-          loaded = true;
-        }
-        panel.classList.add('open');
-        btn.textContent = 'Service Request';
-      } else {
-        panel.classList.remove('open');
-        btn.textContent = 'Close Service Request Form';
-      }
-    });
-  </script>
-</body>
-</html>
+<iframe id="drawer"></iframe>
